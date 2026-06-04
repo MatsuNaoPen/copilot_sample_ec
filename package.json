@@ -1,0 +1,26 @@
+{
+  "name": "ec-cart-pricing-ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "GitHub Copilot 研修 TDD デモ用 ECカート料金計算（React + TypeScript）",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}
