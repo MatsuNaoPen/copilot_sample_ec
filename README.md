@@ -52,7 +52,8 @@ sample_repository/
 │   ├── copilot-instructions.md            … プロジェクト全体の常設ルール（言語/規約/テスト方針）
 │   └── prompts/                           … 再利用プロンプト（Copilot Chat で /名前 で実行）
 │       ├── requirements-from-minutes.prompt.md … 議事録 → 要件定義書
-│       └── design-from-requirements.prompt.md  … 要件定義書 → 設計書
+│       ├── design-from-requirements.prompt.md  … 要件定義書 → 設計書
+│       └── tests-from-design.prompt.md         … 設計書 → テスト（実装より先）
 ├── docs/
 │   ├── minutes/kickoff_meeting.md         … デモの出発点となる議事録（会話形式で料金ルールを含む）
 │   └── templates/
@@ -94,7 +95,8 @@ npm run dev        # まだ料金計算は無い。プレースホルダー画�
 2. **設計書を書かせる** — **`/design-from-requirements`**（`.github/prompts/design-from-requirements.prompt.md`）を実行し、
    要件定義書から **設計書 `docs/design.md`** を生成。
    関数シグネチャ（`calculateCharge`）・型（`Cart` / `PricingResult`）・端数処理（`Math.floor`）をここで確定。
-3. **テストを先に書かせる** — 設計の受け入れ条件から `src/pricing.test.ts` を生成（実装はまだ）。
+3. **テストを先に書かせる** — **`/tests-from-design`**（`.github/prompts/tests-from-design.prompt.md`）を実行し、
+   設計の受け入れ条件から `src/pricing.test.ts` を生成（実装はまだ）。
    この時点で `npm test` は **失敗（赤）** する。
 4. **実装させる** — Agent モードでテストを満たす `src/pricing.ts` を生成し、`npm test` が **全部グリーン**に。
 5. **UI に繋ぐ** — `src/App.tsx` のプレースホルダーを、`calculateCharge` を呼ぶカート UI に置き換え、
