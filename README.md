@@ -108,3 +108,18 @@ npm run dev        # 完成版カート UI を見せる
 
 - `demo-solution` の `src/pricing.ts` と `src/pricing.test.ts` が**アンサーキー**です。
 - 差分を見せたい場合: `git diff demo-start demo-solution`
+
+## 開始状態へのリセット（デモ後・やり直し用）
+
+デモで生成したファイル（`docs/requirements.md` / `docs/design.md` / `src/pricing.ts` / `src/pricing.test.ts` 等）や
+`App.tsx` への変更を破棄し、**`demo-start` のクリーンな状態**に戻します。
+`node_modules` などは保持されるので `npm install` のやり直しは不要です。
+
+```bash
+npm run reset        # 確認プロンプトあり
+npm run reset:yes    # 確認なしで即リセット（本番デモ向け）
+# 直接実行: bash scripts/reset-demo.sh [-y]
+```
+
+> 内部的には `git switch --discard-changes demo-start && git clean -fd` を実行しています。
+> **コミットしていない変更は失われます**。残したい場合は事前に別ブランチへ退避してください。
