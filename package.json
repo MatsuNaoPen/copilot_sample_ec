@@ -9,7 +9,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "reset": "bash scripts/reset-demo.sh",
+    "reset:yes": "bash scripts/reset-demo.sh -y"
   },
   "dependencies": {
     "react": "^18.3.1",
