@@ -7,6 +7,10 @@ GitHub Copilot 活用研修のライブデモ用サンプルリポジトリで�
 題材は **ECカートの料金計算ロジック**。`npm run dev` で**起動できる UI 付きの Web サービス**として動き、
 入力（カート）に対する合計金額をブラウザ上で確認できます。
 
+開始状態（`demo-start`）はいきなり完成形ではなく、**標準的なカート画面＋「小計だけ」を計算する素朴な実装**になっています。
+そこに対して議事録から **要件を定義 → 設計 → テスト → 実装を改善**し、会員割引・クーポン・送料・入力チェックを
+足し込んで完成形に近づけていく、という流れをデモします。
+
 ## 技術スタック
 
 - **フロントエンド**: React 18 + TypeScript
@@ -64,9 +68,9 @@ sample_repository/
 └── src/
     ├── main.tsx                           … React マウント（雛形）
     ├── index.css                          … スタイル（雛形）
-    ├── App.tsx                            … カート UI（demo-start は空のプレースホルダー）
-    ├── pricing.ts                         … 料金計算ロジック（demo-solution のみ）
-    └── pricing.test.ts                    … Vitest テスト（demo-solution のみ）
+    ├── App.tsx                            … カート UI（demo-start は小計のみ表示／demo-solution は割引・送料・エラー表示）
+    ├── pricing.ts                         … 料金計算ロジック（demo-start は小計のみの素朴版／demo-solution は全ルール版）
+    └── pricing.test.ts                    … Vitest テスト（demo-solution のみ。改善時に追加する）
 ```
 
 ## 2つのブランチ（重要）
@@ -75,8 +79,8 @@ sample_repository/
 
 | ブランチ | 役割 | 中身 |
 |----------|------|------|
-| **`demo-start`**（デフォルト） | デモの開始点 | 議事録・テンプレート・copilot-instructions・**起動はできるが料金計算は未実装**の UI 雛形（プレースホルダーの `App.tsx`）。`pricing.ts`・`pricing.test.ts` は無い。 |
-| **`demo-solution`** | フォールバック兼アンサーキー | 受け入れ条件を満たす `src/pricing.ts`・全テスト `src/pricing.test.ts`・完成版カート UI（`App.tsx`）入り。 |
+| **`demo-start`**（デフォルト） | デモの開始点 | 議事録・テンプレート・copilot-instructions・**標準的なカート UI ＋「小計だけ」を計算する素朴な `pricing.ts`**。会員割引・クーポン・送料・バリデーションは未対応。`pricing.test.ts` は無い。 |
+| **`demo-solution`** | フォールバック兼アンサーキー | 受け入れ条件を満たす全ルール版 `src/pricing.ts`・全テスト `src/pricing.test.ts`・割引/送料/エラー表示つきカート UI（`App.tsx`）入り。 |
 
 > 2ブランチの**差分がそのままデモの成果物**（ロジック＋テスト＋UI）になります。
 
@@ -85,9 +89,11 @@ sample_repository/
 ```bash
 git switch demo-start
 npm install
-npm run dev        # まだ料金計算は無い。プレースホルダー画面が出る
+npm run dev        # 標準的なカート画面が出る。ただし合計は「小計だけ」（会員/クーポン/送料は未対応）
 ```
 
+0. **現状を見せる** — `npm run dev` でカート画面を表示。会員チェックやクーポンを操作しても合計が変わらない＝
+   **小計しか計算していない**ことを確認する。「ここから要件を定義して改善する」がデモの出発点。
 1. **議事録を読ませる** — Copilot Chat で **`/requirements-from-minutes`**（`.github/prompts/requirements-from-minutes.prompt.md`）を実行し、
    `docs/minutes/kickoff_meeting.md` から **要件定義書 `docs/requirements.md`** を生成。
    議事録には**端数処理（10%割引で1円未満が出たときの扱い）が明記されていません**。
@@ -96,11 +102,12 @@ npm run dev        # まだ料金計算は無い。プレースホルダー画�
    要件定義書から **設計書 `docs/design.md`** を生成。
    関数シグネチャ（`calculateCharge`）・型（`Cart` / `PricingResult`）・端数処理（`Math.floor`）をここで確定。
 3. **テストを先に書かせる** — **`/tests-from-design`**（`.github/prompts/tests-from-design.prompt.md`）を実行し、
-   設計の受け入れ条件から `src/pricing.test.ts` を生成（実装はまだ）。
-   この時点で `npm test` は **失敗（赤）** する。
-4. **実装させる** — Agent モードでテストを満たす `src/pricing.ts` を生成し、`npm test` が **全部グリーン**に。
-5. **UI に繋ぐ** — `src/App.tsx` のプレースホルダーを、`calculateCharge` を呼ぶカート UI に置き換え、
-   `npm run dev` でブラウザ上の動作を見せる。
+   設計の受け入れ条件から `src/pricing.test.ts` を生成。
+   素朴な実装のままなので、この時点で `npm test` は **失敗（赤）** する。
+4. **実装を改善させる** — Agent モードで `src/pricing.ts` を改善し（会員割引・クーポン・送料・バリデーションを追加）、
+   `npm test` が **全部グリーン**になるまで反復する。
+5. **UI に反映する** — `src/App.tsx` に割引・送料の表示行とエラー表示を追加し、
+   `npm run dev` で会員割引やクーポンが効くようになった動作を見せる。
 
 > **プロンプトファイルについて**: `.github/prompts/*.prompt.md` は VS Code 版 Copilot の再利用プロンプト形式です
 > （Chat で `/ファイル名` または「Chat: Run Prompt」で実行）。frontmatter の実行モード指定は最新版で `agent`
