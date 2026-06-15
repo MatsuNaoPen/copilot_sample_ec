@@ -37,20 +37,25 @@ export interface PricingResult {
 }
 
 /**
- * カートから料金を計算する（ベースライン）。
+ * カートから料金を計算する。
  *
- * 現状は小計のみ。要件定義のあと、以下を順に実装して改善する想定:
- *   - 会員割引（セール品を除いた小計に10%・端数切り捨て）
- *   - クーポン（固定額引き・会員割引とは併用不可）
- *   - 送料（割引後5,000円以上で無料・未満は一律500円）
- *   - バリデーション（数量0以下・単価マイナス・無効クーポン・併用指定）
+ * - 会員割引（セール品を除いた小計に10%・端数切り捨て）
+ * - クーポン・送料・バリデーションは未実装。
  */
 export function calculateCharge(cart: Cart): PricingResult {
-  // TODO(要件定義後に改善): 会員割引・クーポン・送料・バリデーションは未実装。
   const subtotal = cart.items.reduce(
     (sum, item) => sum + item.unitPrice * item.quantity,
     0,
   )
 
-  return { subtotal, discount: 0, shipping: 0, total: subtotal }
+  let discount = 0
+  if (cart.isMember) {
+    const discountableSubtotal = cart.items
+      .filter((item) => !item.isSaleItem)
+      .reduce((sum, item) => sum + item.unitPrice * item.quantity, 0)
+    discount = Math.floor((discountableSubtotal * 10) / 100)
+  }
+
+  const total = subtotal - discount
+  return { subtotal, discount, shipping: 0, total }
 }
