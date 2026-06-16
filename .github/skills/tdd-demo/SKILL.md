@@ -1,6 +1,7 @@
 ---
 name: tdd-demo
-description: ECカート料金計算のTDDデモを「議事録→要件定義→設計→テスト(レッド)→実装(グリーン)→UI反映」の順で進行・再開する。requirements.md / design.md / pricing.test.ts の生成や、テストファーストでの pricing.ts の改善・UIへの反映を依頼されたときに使う。
+description: ECカート料金計算のTDDデモを「議事録→要件定義→設計→テスト(レッド)→実装(グリーン)→UI反映」の順で進行・再開する。requirements.md / design.md / pricing.test.ts の生成や、テストファーストでの pricing.ts の改善・UIへの反映を行うときに使う。
+allowed-tools: shell
 ---
 
 # TDD デモ進行 skill
@@ -37,7 +38,7 @@ GitHub Copilot 研修用 EC カート料金計算デモを、ドキュメント�
 - プロジェクト規約 `.github/copilot-instructions.md` と `.github/instructions/*.instructions.md` を必ず守る
   （純粋関数・型必須/`any`禁止・金額は整数で端数 `Math.floor` 切り捨て・例外を握り潰さない 等）。
 - **議事録/上流に明記がない点を勝手に確定しない**。要件定義では「不明点・確認事項」節に、設計では「要確認」として推奨案つきで残す（特に端数処理＝切り上げ/切り捨て/四捨五入）。
-- 前段に「不明点」が残ったまま後段を確定させない。下流で確定が必要になったら、その判断 をユーザーに確認する。
+- 前段に「不明点」が残ったまま後段を確定させない。下流で確定が必要になったら、その判断をユーザーに確認する。
 
 ## ステージ別の要点
 
