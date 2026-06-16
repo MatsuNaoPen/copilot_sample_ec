@@ -14,3 +14,12 @@ pnpm-debug.log*
 !.vscode/extensions.json
 .idea/
 .DS_Store
+
+# python
+__pycache__/
+*.pyc
+
+# docs_xlsx: 生成物（md が正本）。テンプレ xlsx のみ追跡する。
+/docs/requirements.xlsx
+/docs/design.xlsx
+~$*.xlsx

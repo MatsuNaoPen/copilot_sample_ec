@@ -11,7 +11,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "reset": "bash scripts/reset-demo.sh",
-    "reset:yes": "bash scripts/reset-demo.sh -y"
+    "reset:yes": "bash scripts/reset-demo.sh -y",
+    "docs:xlsx:export": "python3 scripts/docs_xlsx.py export-docs",
+    "docs:xlsx:import": "python3 scripts/docs_xlsx.py import-docs",
+    "docs:xlsx:template": "python3 scripts/docs_xlsx.py template"
   },
   "dependencies": {
     "react": "^18.3.1",
