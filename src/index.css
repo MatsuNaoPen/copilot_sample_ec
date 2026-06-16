@@ -1,8 +1,63 @@
 :root {
   font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN",
     Meiryo, sans-serif;
-  color: #1f2933;
-  background-color: #f5f7fa;
+
+  /* ライトテーマのカラートークン（デフォルト） */
+  --color-text: #1f2933;
+  --color-text-muted: #52606d;
+  --color-bg-page: #f5f7fa;
+  --color-bg-container: #ffffff;
+  --color-bg-subtle: #eef2f7;
+  --color-border: #e4e9f0;
+  --color-border-input: #cbd2d9;
+  --color-accent: #4c6ef5;
+  --color-btn-secondary-bg: #e4e9f0;
+  --color-btn-secondary-text: #1f2933;
+  --color-error-bg: #fff0f0;
+  --color-error-border: #e03131;
+  --color-error-text: #c92a2a;
+  --color-shadow: rgba(15, 41, 51, 0.08);
+
+  color: var(--color-text);
+  background-color: var(--color-bg-page);
+}
+
+/* ダークテーマのカラートークン */
+:root[data-theme="dark"] {
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-bg-page: #0f172a;
+  --color-bg-container: #1e293b;
+  --color-bg-subtle: #1e3a5f;
+  --color-border: #334155;
+  --color-border-input: #475569;
+  --color-accent: #6d8ef7;
+  --color-btn-secondary-bg: #334155;
+  --color-btn-secondary-text: #e2e8f0;
+  --color-error-bg: #3d1515;
+  --color-error-border: #e03131;
+  --color-error-text: #fca5a5;
+  --color-shadow: rgba(0, 0, 0, 0.4);
+}
+
+/* システム追従: OS がダークモードのとき、かつテーマ固定がないとき */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --color-text: #e2e8f0;
+    --color-text-muted: #94a3b8;
+    --color-bg-page: #0f172a;
+    --color-bg-container: #1e293b;
+    --color-bg-subtle: #1e3a5f;
+    --color-border: #334155;
+    --color-border-input: #475569;
+    --color-accent: #6d8ef7;
+    --color-btn-secondary-bg: #334155;
+    --color-btn-secondary-text: #e2e8f0;
+    --color-error-bg: #3d1515;
+    --color-error-border: #e03131;
+    --color-error-text: #fca5a5;
+    --color-shadow: rgba(0, 0, 0, 0.4);
+  }
 }
 
 * {
@@ -17,10 +72,10 @@ body {
 .container {
   max-width: 720px;
   margin: 0 auto;
-  background: #ffffff;
+  background: var(--color-bg-container);
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 2px 12px rgba(15, 41, 51, 0.08);
+  box-shadow: 0 2px 12px var(--color-shadow);
 }
 
 h1 {
@@ -29,15 +84,15 @@ h1 {
 }
 
 .note {
-  background: #eef2f7;
-  border-left: 4px solid #4c6ef5;
+  background: var(--color-bg-subtle);
+  border-left: 4px solid var(--color-accent);
   padding: 0.75rem 1rem;
   border-radius: 4px;
   line-height: 1.7;
 }
 
 code {
-  background: #eef2f7;
+  background: var(--color-bg-subtle);
   padding: 0.1em 0.35em;
   border-radius: 4px;
   font-size: 0.9em;
@@ -51,14 +106,14 @@ table {
 
 th,
 td {
-  border-bottom: 1px solid #e4e9f0;
+  border-bottom: 1px solid var(--color-border);
   padding: 0.5rem;
   text-align: left;
   font-size: 0.95rem;
 }
 
 th {
-  color: #52606d;
+  color: var(--color-text-muted);
   font-weight: 600;
 }
 
@@ -66,9 +121,11 @@ input[type="number"],
 input[type="text"] {
   width: 100%;
   padding: 0.4rem 0.5rem;
-  border: 1px solid #cbd2d9;
+  border: 1px solid var(--color-border-input);
   border-radius: 6px;
   font-size: 0.95rem;
+  background: var(--color-bg-container);
+  color: var(--color-text);
 }
 
 .controls {
@@ -91,14 +148,14 @@ button {
   border-radius: 8px;
   padding: 0.55rem 1.1rem;
   font-size: 0.95rem;
-  background: #4c6ef5;
+  background: var(--color-accent);
   color: #fff;
   font-weight: 600;
 }
 
 button.secondary {
-  background: #e4e9f0;
-  color: #1f2933;
+  background: var(--color-btn-secondary-bg);
+  color: var(--color-btn-secondary-text);
 }
 
 button.link {
@@ -110,7 +167,7 @@ button.link {
 
 .result {
   margin-top: 1.5rem;
-  border-top: 2px solid #e4e9f0;
+  border-top: 2px solid var(--color-border);
   padding-top: 1rem;
 }
 
@@ -122,7 +179,7 @@ button.link {
 }
 
 .result dt {
-  color: #52606d;
+  color: var(--color-text-muted);
 }
 
 .result dd {
@@ -135,14 +192,32 @@ button.link {
 .result .total dd {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1f2933;
+  color: var(--color-text);
 }
 
 .error {
   margin-top: 1rem;
-  background: #fff0f0;
-  border-left: 4px solid #e03131;
-  color: #c92a2a;
+  background: var(--color-error-bg);
+  border-left: 4px solid var(--color-error-border);
+  color: var(--color-error-text);
   padding: 0.75rem 1rem;
   border-radius: 4px;
+}
+
+.theme-selector {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.theme-selector button {
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.theme-selector button[aria-pressed="true"] {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
