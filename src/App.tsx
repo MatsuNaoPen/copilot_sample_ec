@@ -148,6 +148,13 @@ export default function App() {
         <dl>
           <dt>小計</dt>
           <dd>{yen(result.subtotal)}</dd>
+
+          <dt>割引</dt>
+          <dd>{result.discount > 0 ? `- ${yen(result.discount)}` : yen(0)}</dd>
+
+          <dt>送料</dt>
+          <dd>{result.shipping === 0 ? '無料' : yen(result.shipping)}</dd>
+
           <div className="total" style={{ display: 'contents' }}>
             <dt>合計</dt>
             <dd>{yen(result.total)}</dd>
