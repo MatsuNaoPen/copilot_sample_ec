@@ -1,8 +1,62 @@
 :root {
   font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN",
     Meiryo, sans-serif;
-  color: #1f2933;
-  background-color: #f5f7fa;
+
+  --color-bg: #f5f7fa;
+  --color-text: #1f2933;
+  --color-text-muted: #52606d;
+  --color-container-bg: #ffffff;
+  --color-container-shadow: rgba(15, 41, 51, 0.08);
+  --color-border: #e4e9f0;
+  --color-input-border: #cbd2d9;
+  --color-note-bg: #eef2f7;
+  --color-code-bg: #eef2f7;
+  --color-btn-secondary-bg: #e4e9f0;
+  --color-btn-secondary-text: #1f2933;
+  --color-error-bg: #fff0f0;
+  --color-error-border: #e03131;
+  --color-error-text: #c92a2a;
+
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+/* ダーク: ユーザーが明示的に「ダーク」を選んだ場合 */
+[data-theme="dark"] {
+  --color-bg: #1a1f2e;
+  --color-text: #e4e9f0;
+  --color-text-muted: #9aa5b4;
+  --color-container-bg: #252d3d;
+  --color-container-shadow: rgba(0, 0, 0, 0.3);
+  --color-border: #3d4f66;
+  --color-input-border: #4a5568;
+  --color-note-bg: #1e2a3a;
+  --color-code-bg: #1e2a3a;
+  --color-btn-secondary-bg: #3d4f66;
+  --color-btn-secondary-text: #e4e9f0;
+  --color-error-bg: #3d1f1f;
+  --color-error-border: #fc5c5c;
+  --color-error-text: #fc8181;
+}
+
+/* システム追従: OS がダークモードのとき（ユーザーが「ライト」を選んでいなければ適用） */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --color-bg: #1a1f2e;
+    --color-text: #e4e9f0;
+    --color-text-muted: #9aa5b4;
+    --color-container-bg: #252d3d;
+    --color-container-shadow: rgba(0, 0, 0, 0.3);
+    --color-border: #3d4f66;
+    --color-input-border: #4a5568;
+    --color-note-bg: #1e2a3a;
+    --color-code-bg: #1e2a3a;
+    --color-btn-secondary-bg: #3d4f66;
+    --color-btn-secondary-text: #e4e9f0;
+    --color-error-bg: #3d1f1f;
+    --color-error-border: #fc5c5c;
+    --color-error-text: #fc8181;
+  }
 }
 
 * {
@@ -17,10 +71,10 @@ body {
 .container {
   max-width: 720px;
   margin: 0 auto;
-  background: #ffffff;
+  background: var(--color-container-bg);
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 2px 12px rgba(15, 41, 51, 0.08);
+  box-shadow: 0 2px 12px var(--color-container-shadow);
 }
 
 h1 {
@@ -29,7 +83,7 @@ h1 {
 }
 
 .note {
-  background: #eef2f7;
+  background: var(--color-note-bg);
   border-left: 4px solid #4c6ef5;
   padding: 0.75rem 1rem;
   border-radius: 4px;
@@ -37,7 +91,7 @@ h1 {
 }
 
 code {
-  background: #eef2f7;
+  background: var(--color-code-bg);
   padding: 0.1em 0.35em;
   border-radius: 4px;
   font-size: 0.9em;
@@ -51,14 +105,14 @@ table {
 
 th,
 td {
-  border-bottom: 1px solid #e4e9f0;
+  border-bottom: 1px solid var(--color-border);
   padding: 0.5rem;
   text-align: left;
   font-size: 0.95rem;
 }
 
 th {
-  color: #52606d;
+  color: var(--color-text-muted);
   font-weight: 600;
 }
 
@@ -66,9 +120,11 @@ input[type="number"],
 input[type="text"] {
   width: 100%;
   padding: 0.4rem 0.5rem;
-  border: 1px solid #cbd2d9;
+  border: 1px solid var(--color-input-border);
   border-radius: 6px;
   font-size: 0.95rem;
+  background: var(--color-container-bg);
+  color: var(--color-text);
 }
 
 .controls {
@@ -97,8 +153,8 @@ button {
 }
 
 button.secondary {
-  background: #e4e9f0;
-  color: #1f2933;
+  background: var(--color-btn-secondary-bg);
+  color: var(--color-btn-secondary-text);
 }
 
 button.link {
@@ -110,7 +166,7 @@ button.link {
 
 .result {
   margin-top: 1.5rem;
-  border-top: 2px solid #e4e9f0;
+  border-top: 2px solid var(--color-border);
   padding-top: 1rem;
 }
 
@@ -122,7 +178,7 @@ button.link {
 }
 
 .result dt {
-  color: #52606d;
+  color: var(--color-text-muted);
 }
 
 .result dd {
@@ -135,14 +191,43 @@ button.link {
 .result .total dd {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1f2933;
+  color: var(--color-text);
 }
 
 .error {
   margin-top: 1rem;
-  background: #fff0f0;
-  border-left: 4px solid #e03131;
-  color: #c92a2a;
+  background: var(--color-error-bg);
+  border-left: 4px solid var(--color-error-border);
+  color: var(--color-error-text);
   padding: 0.75rem 1rem;
   border-radius: 4px;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.theme-toggle select {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--color-input-border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: var(--color-container-bg);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
 }

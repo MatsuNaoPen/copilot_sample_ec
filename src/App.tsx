@@ -5,6 +5,7 @@ import {
   type CartItem,
   type PricingResult,
 } from './pricing'
+import { useTheme, type Theme } from './useTheme'
 
 interface ItemRow {
   unitPrice: string
@@ -20,6 +21,7 @@ const INITIAL_ROWS: ItemRow[] = [
 const yen = (value: number): string => `${value.toLocaleString('ja-JP')} 円`
 
 export default function App() {
+  const [theme, setTheme] = useTheme()
   const [rows, setRows] = useState<ItemRow[]>(INITIAL_ROWS)
   const [isMember, setIsMember] = useState(false)
   const [couponCode, setCouponCode] = useState('')
@@ -58,7 +60,21 @@ export default function App() {
 
   return (
     <main className="container">
-      <h1>ECカート 料金計算</h1>
+      <div className="header">
+        <h1>ECカート 料金計算</h1>
+        <div className="theme-toggle">
+          <label htmlFor="theme-select">テーマ</label>
+          <select
+            id="theme-select"
+            value={theme}
+            onChange={(e) => setTheme(e.target.value as Theme)}
+          >
+            <option value="system">システム追従</option>
+            <option value="light">ライト</option>
+            <option value="dark">ダーク</option>
+          </select>
+        </div>
+      </div>
 
       <table>
         <thead>
