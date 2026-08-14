@@ -1,0 +1,27 @@
+# 【研修用テンプレート】ハーネス整備ワークショップで .github/workflows/ci.yml として配置する。
+# push / PR のたびに 型チェック・lint・テスト を実行し、失敗したら PR をマージできなくする
+# （マージブロックは保護ブランチ設定と組み合わせる）。
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Type check
+        run: npm run typecheck
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm run test

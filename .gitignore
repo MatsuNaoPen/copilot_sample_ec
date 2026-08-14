@@ -1,25 +1,9 @@
 node_modules/
-dist/
-dist-ssr/
-*.local
-
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# editor / os
-.vscode/*
-!.vscode/extensions.json
-.idea/
+.next/
+out/
+build/
+*.tsbuildinfo
+next-env.d.ts
 .DS_Store
-
-# python
-__pycache__/
-*.pyc
-
-# docs_xlsx: 生成物（md が正本）。テンプレ xlsx のみ追跡する。
-/docs/requirements.xlsx
-/docs/design.xlsx
-~$*.xlsx
+.env*
+!.env.example
