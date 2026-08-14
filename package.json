@@ -1,31 +1,29 @@
 {
-  "name": "ec-cart-pricing-ui",
+  "name": "copilot-sample-ec",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
-  "description": "GitHub Copilot 研修 TDD デモ用 ECカート料金計算（React + TypeScript）",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "reset": "bash scripts/reset-demo.sh",
-    "reset:yes": "bash scripts/reset-demo.sh -y",
-    "docs:xlsx:export": "python3 scripts/docs_xlsx.py export-docs",
-    "docs:xlsx:import": "python3 scripts/docs_xlsx.py import-docs",
-    "docs:xlsx:template": "python3 scripts/docs_xlsx.py template"
+    "test:watch": "vitest"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "next": "^15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
-    "typescript": "^5.6.3",
-    "vite": "^6.0.7",
-    "vitest": "^4.1.8"
+    "@eslint/eslintrc": "^3.3.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^15.3.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.0.0"
   }
 }
