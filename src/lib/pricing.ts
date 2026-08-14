@@ -48,7 +48,7 @@ const VALID_COUPONS: Record<string, number> = {
 };
 
 /** 送料無料となる割引後金額のしきい値（円・この金額以上で無料）。 */
-const FREE_SHIPPING_THRESHOLD = 5000;
+const FREE_SHIPPING_THRESHOLD = 4000; // ★違反3: 設計書・テストを更新せずしきい値を変更（テストが赤くなる）
 
 /** 通常送料（円）。 */
 const SHIPPING_FEE = 500;
